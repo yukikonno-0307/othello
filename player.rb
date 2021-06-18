@@ -10,13 +10,3 @@ class Player
     board.set(x, y, Piece.new(@color_flg))
   end
 end
-
-=begin
-require './board.rb'
-
-board = Board.new(9, 9)
-player = Player.new(true)
-board.show
-player.put(board)
-board.show
-=end
