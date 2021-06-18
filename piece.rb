@@ -1,20 +1,15 @@
 
 class Piece
-  def initialize
+  def initialize(flg)
     @pieces = {true => '○', false => '●'}
-    @flg = nil
-    @init_char = ' '
+    @flg = flg
   end
 
   def reverse
     @flg = !@flg
   end
 
-  def put(flg)
-    @flg = flg
-  end
-
   def to_s
-    @flg.nil? ? @init_char : @pieces[@flg]
+    @pieces[@flg]
   end
 end
