@@ -4,7 +4,7 @@ require './player.rb'
 class Operator
   attr_accessor :board
   def initialize
-    @board = Board.new(9, 9)
+    @board = Board.new(8, 8)
     @players = {
       true => Player.new(true),
       false => Player.new(false)
@@ -13,14 +13,19 @@ class Operator
   end
 
   def start
-    until @board.gameset? do
+    until gameset? do
       @players[@turn].put(@board)
       @board.show
       @turn = !@turn
     end
   end
+
+  private
+
+  def gameset?
+    @board.full?
+  end
 end
 
 op = Operator.new
 op.start
-#op.board.gameset?

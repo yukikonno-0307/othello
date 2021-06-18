@@ -19,14 +19,14 @@ class Board
     @cell_data[x][y] = piece
   end
 
-  def gameset?
+  def full?
     board_statuses = Array.new
     (1..@x_line_size).each do |x|
       (1..@y_line_size).each do |y|
-        board_statuses << @cell_data[x][y].class
+        board_statuses << @cell_data[x][y].instance_of?(Piece)
       end
     end
-    board_statuses.all? {|cls| cls == 'Piece'}
+    board_statuses.all?
   end
 
   def reverse(x, y, p)
