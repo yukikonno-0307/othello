@@ -10,8 +10,8 @@ class Piece
     @flg = !@flg
   end
 
-  def put(player)
-    @flg = player.color
+  def put(flg)
+    @flg = flg
   end
 
   def to_s
