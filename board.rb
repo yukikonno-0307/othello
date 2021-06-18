@@ -15,8 +15,18 @@ class Board
     end
   end
 
-  def set(x, y, p)
-    @cell_data[x][y] = p
+  def set(x, y, piece)
+    @cell_data[x][y] = piece
+  end
+
+  def full?
+    board_statuses = Array.new
+    (1..@x_line_size).each do |x|
+      (1..@y_line_size).each do |y|
+        board_statuses << @cell_data[x][y].instance_of?(Piece)
+      end
+    end
+    board_statuses.all?
   end
 
   def reverse(x, y, p)
@@ -53,6 +63,7 @@ class Board
   end
 end
 
+=begin
 def test_reverse
   b = Board.new(9, 9)
   (1..9).each do |i|
@@ -67,3 +78,4 @@ def test_reverse
 end
 
 test_reverse
+=end
