@@ -26,6 +26,3 @@ class Operator
     @board.full?
   end
 end
-
-op = Operator.new
-op.start
