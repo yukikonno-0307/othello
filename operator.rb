@@ -6,8 +6,8 @@ class Operator
   def initialize
     @board = Board.new(8, 8)
     @players = {
-      true => Player.new(true),
-      false => Player.new(false)
+      true => Player.new('Player A.', true),
+      false => Player.new('Player B', false)
     }
     @turn = true
   end
