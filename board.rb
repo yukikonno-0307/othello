@@ -71,20 +71,3 @@ class Board
     [from_position, to_position]
   end
 end
-
-=begin
-def test_reverse
-  b = Board.new(9, 9)
-  (1..9).each do |i|
-    next if i == 5
-    b.set(i, 5, i.odd?? '●' : '○')
-    b.set(5, i, i.odd?? '●' : '○')
-  end
-  b.set(5, 5, '●')
-  b.reverse(5, 5, '●')
-
-  b.show
-end
-
-test_reverse
-=end
