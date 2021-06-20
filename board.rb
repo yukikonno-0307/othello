@@ -1,3 +1,4 @@
+require './piece.rb'
 
 class Board
   attr_accessor :cell_data
@@ -6,6 +7,7 @@ class Board
     @y_line_size = y_line_size
     @x_sep_char = '|'
     @cell_data = Hash.new {|h,k| h[k] = Hash.new(' ')}
+    put_init
   end
 
   def show
@@ -41,6 +43,13 @@ class Board
   end
 
   private
+
+  def put_init
+    set(4, 4, Piece.new(true))
+    set(5, 4, Piece.new(false))
+    set(5, 5, Piece.new(true))
+    set(4, 5, Piece.new(false))
+  end
 
   def get_x_line_header
     Array.new(@x_line_size){|x|x+1}.insert(0, ' ').join(sep=@x_sep_char)
