@@ -1,30 +1,39 @@
+require './cell.rb'
 require './piece.rb'
 
 class Board
-  attr_accessor :cell_data
-  def initialize(x_line_size, y_line_size)
-    @x_line_size = x_line_size
-    @y_line_size = y_line_size
+  attr_reader :min_limits, :max_limits, :positions
+  attr_accessor :cell_data, :cells
+  def initialize(x_size, y_size)
+    @x_size = x_size; @y_size = y_size
     @x_sep_char = '|'
-    @cell_data = Hash.new {|h,k| h[k] = Hash.new(' ')}
+    @min_limits = [0, 1]; @max_limits = [x_size, x_size - 1]
+    #@cell_data = Hash.new {|h,k| h[k] = Hash.new {|h,k| h[k] = Cell.new}}
+    @cells = Hash.new {|h,k| h[k] = {}}
+    @positions = []
+    initialize_cells
     put_init
   end
 
   def show
     puts get_x_line_header
-    @y_line_size.times do |y|
+    @y_size.times do |y|
       puts get_line y+1
     end
   end
 
+  def set_force(x, y, piece)
+    @cells[x][y].piece = piece
+  end
+
   def set(x, y, piece)
-    @cell_data[x][y] = piece
+    @cells[x][y].piece = piece
   end
 
   def full?
     board_statuses = Array.new
-    (1..@x_line_size).each do |x|
-      (1..@y_line_size).each do |y|
+    (1..@x_size).each do |x|
+      (1..@y_size).each do |y|
         board_statuses << @cell_data[x][y].instance_of?(Piece)
       end
     end
@@ -45,23 +54,33 @@ class Board
   private
 
   def put_init
-    set(4, 4, Piece.new(true))
-    set(5, 4, Piece.new(false))
-    set(5, 5, Piece.new(true))
-    set(4, 5, Piece.new(false))
+    set_force(4, 4, Piece.new(true))
+    set_force(5, 4, Piece.new(false))
+    set_force(5, 5, Piece.new(true))
+    set_force(4, 5, Piece.new(false))
+  end
+
+  def initialize_cells
+    (1..@x_size).each do |x|
+      (1..@y_size).each do |y|
+        @cells[x][y] = Cell.new(x, y)
+      end
+    end
   end
 
   def get_x_line_header
-    Array.new(@x_line_size){|x|x+1}.insert(0, ' ').join(sep=@x_sep_char)
+    Array.new(@x_size){|x|x+1}.insert(0, ' ').join(sep=@x_sep_char)
   end
 
   def get_line(y_cursor)
-    Array.new(@x_line_size){|x_cursor|@cell_data[x_cursor+1][y_cursor]}.insert(0, y_cursor).join(sep=@x_sep_char)
+    Array.new(@x_size){|x_cursor|@cells[x_cursor+1][y_cursor]}.insert(0, y_cursor).join(sep=@x_sep_char)
   end
+end
 
+=begin
   def search(p, axis_cursor, put_position, mode)
     found_pieces = Array.new
-    (1..(mode == 'x'? @x_line_size : @y_line_size)).each do |cursor|
+    (1..(mode == 'x'? @x_size : @y_size)).each do |cursor|
       fetched_data = mode == 'x'? @cell_data[cursor][axis_cursor] : @cell_data[axis_cursor][cursor]
       found_pieces << cursor if fetched_data == p
     end
@@ -71,3 +90,4 @@ class Board
     [from_position, to_position]
   end
 end
+=end

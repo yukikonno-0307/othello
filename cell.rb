@@ -25,8 +25,8 @@ class Cell
 
   def set_reverse_positions(board, piece)
     upper_left(board, piece)
-    up(board, piece)
-    upper_right(board, piece)
+    #up(board, piece)
+    #upper_right(board, piece)
     #left(board, positions)
     #right(board, positions)
     #lower_left(board, positions)
@@ -41,11 +41,11 @@ class Cell
         if next_cell.piece.enemy?(piece.flg)
           board.positions << {x: next_cell.x, y: next_cell.y}
           next_cell.upper_left(board, piece)
-        elsif !next_cell.piece.enemy?(piece.flg)
-          return
         else
-          board.positions = []
+          return
         end
+      else
+        board.positions = []; return
       end
     end
   end

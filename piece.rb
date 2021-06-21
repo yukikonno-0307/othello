@@ -1,5 +1,6 @@
 
 class Piece
+  attr_reader :flg
   def initialize(flg)
     @pieces = {true => '○', false => '●'}
     @flg = flg
@@ -11,5 +12,9 @@ class Piece
 
   def to_s
     @pieces[@flg]
+  end
+
+  def enemy?(flg)
+    @flg != flg
   end
 end

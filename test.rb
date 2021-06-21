@@ -12,3 +12,4 @@ def test_upper_left_reverse_position(b)
 end
 
 b = Board.new(8, 8)
+test_upper_left_reverse_position(b)
