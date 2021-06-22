@@ -3,10 +3,8 @@ class Cell
   attr_reader :x, :y
   attr_accessor :piece
   def initialize(x, y)
-    @x = x
-    @y = y
+    @x = x; @y = y
     @piece = nil
-
     @prev_x = x - 1; @next_x = x + 1
     @prev_y = y - 1; @next_y = y + 1
   end
@@ -15,23 +13,14 @@ class Cell
     !@piece.nil?
   end
 
-  def put(board, piece)
-    set_reverse_positions(board, piece)
-  end
-
   def to_s
     @piece.nil? ? ' ' : @piece.to_s
   end
 
   def set_reverse_positions(board, piece)
-    upper_left(board, piece)
-    up(board, piece)
-    upper_right(board, piece)
-    left(board, piece)
-    right(board, piece)
-    lower_left(board, piece)
-    low(board, piece)
-    lower_right(board, piece)
+    upper_left(board, piece); up(board, piece);  upper_right(board, piece)
+    left(board, piece);                          right(board, piece)
+    lower_left(board, piece); low(board, piece); lower_right(board, piece)
   end
 
   def search_recursion(board, piece, next_cell, exec_method_sym)
