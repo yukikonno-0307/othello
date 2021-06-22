@@ -1,5 +1,6 @@
 require './cell.rb'
 require './piece.rb'
+require './reverse_positions.rb'
 
 class Board
   attr_reader :min_limits, :max_limits
@@ -10,7 +11,7 @@ class Board
     @min_limits = [0, 1]; @max_limits = [x_size, x_size - 1]
     #@cell_data = Hash.new {|h,k| h[k] = Hash.new {|h,k| h[k] = Cell.new}}
     @cells = Hash.new {|h,k| h[k] = {}}
-    @positions = []
+    @positions = ReversePosition.new
     initialize_cells
     put_init
   end

@@ -37,14 +37,13 @@ class Cell
   def search_recursion(board, piece, next_cell, exec_method_sym)
     if next_cell.piece?
       if next_cell.piece.enemy?(piece.flg)
-        board.positions << {x: next_cell.x, y: next_cell.y}
+        board.positions.buffs << {x: next_cell.x, y: next_cell.y}
         next_cell.send(exec_method_sym, *[board, piece])
       else
-        # ここでバッファを確定させる
-        return
+        board.positions.freeze_buffer; return
       end
     else
-      board.positions = []; return
+      board.positions.clear_buffer; return
     end
   end
 
