@@ -2,8 +2,8 @@ require './cell.rb'
 require './piece.rb'
 
 class Board
-  attr_reader :min_limits, :max_limits, :positions
-  attr_accessor :cell_data, :cells
+  attr_reader :min_limits, :max_limits
+  attr_accessor :cell_data, :cells, :positions
   def initialize(x_size, y_size)
     @x_size = x_size; @y_size = y_size
     @x_sep_char = '|'
